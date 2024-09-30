@@ -237,7 +237,7 @@ public class ChatService {
             case "management": return List.of(0.0f, 0.0f, 1.0f);
             case "javascript": return List.of(1.0f, 0.5f, 0.0f);
             case "c++": return List.of(1.0f, 0.3f, 0.2f);
-            case "html": return List.of(0.5f, 1.0f, 0.5f);
+            case "html", "css": return List.of(0.5f, 1.0f, 0.5f);
             case "data analysis": return List.of(0.2f, 1.0f, 0.3f);
             case "machine learning": return List.of(0.3f, 1.0f, 0.7f);
             case "project management": return List.of(0.4f, 0.6f, 1.0f);
