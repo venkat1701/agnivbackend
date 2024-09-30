@@ -188,5 +188,15 @@
             </releases>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <url>https://github.com/venkat1701/agnivbackend/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>https://github.com/venkat1701/agnivbackend/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
