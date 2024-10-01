@@ -1,10 +1,13 @@
 package io.github.venkat1701.agnivbackend.controllers.chat;
 
+import io.github.ollama4j.exceptions.OllamaBaseException;
 import io.github.venkat1701.agnivbackend.service.chat.ChatService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 @CrossOrigin("*")
 /**
@@ -39,7 +42,7 @@ public class ChatController {
      * @return the chat response
      */
     @GetMapping("/chat/query")
-    public String getChatResponse(@RequestParam String query, @RequestParam(required = false) Long userId) {
+    public String getChatResponse(@RequestParam String query, @RequestParam(required = false) Long userId) throws OllamaBaseException, IOException, InterruptedException {
         if (userId == null) {
             return "User ID is required.";
         }

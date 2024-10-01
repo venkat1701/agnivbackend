@@ -11,10 +11,16 @@ import io.github.venkat1701.agnivbackend.repository.auth.UserRepository;
 import io.github.venkat1701.agnivbackend.repository.embeddings.DocumentEmbeddingRepository;
 import io.github.venkat1701.agnivbackend.repository.embeddings.UserEmbeddingRepository;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.DefaultChatClient;
+import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.ollama.api.OllamaApi;
+import org.springframework.ai.ollama.api.OllamaOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +49,13 @@ public class ChatService {
     public ChatService(ChatClient.Builder client,
                        UserEmbeddingRepository userEmbeddingRepository,
                        DocumentEmbeddingRepository documentEmbeddingRepository,
-                       UserRepository userRepository) {
-        this.chatClient = client.build();
+                       UserRepository userRepository) throws URISyntaxException {
+        this.chatClient = ChatClient.builder(
+                new OllamaChatModel(
+                        new OllamaApi(new URI("https://grim-marcelia-garibrath-782959fb.koyeb.app/").toString()),
+                        OllamaOptions.builder().withModel("tinyllama").build()
+                )
+        ).build();
         this.userEmbeddingRepository = userEmbeddingRepository;
         this.documentEmbeddingRepository = documentEmbeddingRepository;
         this.userRepository = userRepository;
@@ -78,10 +89,11 @@ public class ChatService {
         String documentContext = buildContextFromDocuments(similarDocuments);
 
         String augmentedQuery = buildAugmentedQuery(userContext, similarUsersContext, documentContext, query, conversation);
-        System.out.println(host);
-        OllamaAPI ollamaAPI = new OllamaAPI(host);
+//        System.out.println(host);
+//        OllamaAPI ollamaAPI = new OllamaAPI("https://grim-marcelia-garibrath-782959fb.koyeb.app/");
+//
+//        ollamaAPI.setVerbose(true);
 
-        ollamaAPI.setVerbose(true);
 
         String response = this.chatClient.prompt().user(augmentedQuery).call().content();
         conversation.add("Bot: " + response);
