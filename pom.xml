@@ -190,12 +190,14 @@
     </repositories>
     <distributionManagement>
         <repository>
-            <id>releases</id>
-            <url>https://github.com/venkat1701/agnivbackend/releases</url>
+            <id>github</id>
+            <name>GitHub Packages - Releases</name>
+            <url>https://maven.pkg.github.com/venkat1701/agnivbackend</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
-            <url>https://github.com/venkat1701/agnivbackend/snapshots</url>
+            <id>github</id>
+            <name>GitHub Packages - Snapshots</name>
+            <url>https://maven.pkg.github.com/venkat1701/agnivbackend</url>
         </snapshotRepository>
     </distributionManagement>
 
