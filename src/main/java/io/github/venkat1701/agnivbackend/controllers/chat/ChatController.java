@@ -1,10 +1,12 @@
 package io.github.venkat1701.agnivbackend.controllers.chat;
 
 import io.github.venkat1701.agnivbackend.service.chat.ChatService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin("*")
 /**
  * Handles all the chat-related operations in the application. This class is
  * responsible for getting the chat response from the chat service based on the
