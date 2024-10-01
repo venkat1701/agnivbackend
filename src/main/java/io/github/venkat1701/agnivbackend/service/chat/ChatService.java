@@ -80,7 +80,7 @@ public class ChatService {
         String augmentedQuery = buildAugmentedQuery(userContext, similarUsersContext, documentContext, query, conversation);
         System.out.println(host);
         OllamaAPI ollamaAPI = new OllamaAPI(host);
-        System.out.println(ollamaAPI.ping());
+
         ollamaAPI.setVerbose(true);
 
         String response = this.chatClient.prompt().user(augmentedQuery).call().content();
