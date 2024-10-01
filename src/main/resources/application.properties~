@@ -3,6 +3,7 @@ spring.datasource.driver=cdata.jdbc.postgresql.PostgreSQLDriver
 spring.datasource.url=jdbc:postgresql://ep-polished-bush-a2a27iww.eu-central-1.pg.koyeb.app/koyebdb?user=garibrath-admin&password=iMAopt23FEYq
 spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=update
+spring.ai.ollama.chat.model=ollama2
 management.endpoints.web.exposure.include=*
 management.endpoint.health.show-details=always
 server.port=8080
