@@ -77,10 +77,10 @@ public class AppConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000/**", "http://localhost:3000/"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         config.setAllowedHeaders(Arrays.asList("Access-Control-*, Origin, X-Requested-With, Content-Type, Accept"));
-        config.setExposedHeaders(Arrays.asList("Access-Control-*"));
+        config.setExposedHeaders(Arrays.asList("Access-Control-*", "Authorization"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
