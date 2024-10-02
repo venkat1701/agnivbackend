@@ -96,7 +96,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateToken(authentication, createdUser.getId());
-        return new ResponseEntity<>(new AuthResponse(jwt, "Token Generated with User ID " + user.getId()), HttpStatus.CREATED);
+        return ResponseEntity.ok().body(new AuthResponse(jwt, "" + user.getId()));
     }
 
     /**
@@ -133,7 +133,7 @@ public class AuthController {
         }
 
         String jwt = jwtProvider.generateToken(authentication, user.getId());
-        return new ResponseEntity<>(new AuthResponse(jwt, "" + user.getId()), HttpStatus.OK);
+        return ResponseEntity.ok().body(new AuthResponse(jwt, "" + user.getId()));
     }
     /**
      * Authenticates the user with the given email and password.
