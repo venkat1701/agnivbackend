@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@CrossOrigin(origins = "http://localhost:3000")
 /**
  * Handles all the chat-related operations in the application. This class is
  * responsible for getting the chat response from the chat service based on the
@@ -26,6 +25,7 @@ import java.io.IOException;
  * @author Venkat
  */
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3000/chat"}, exposedHeaders = "Access-Control-Allow-Origin")
 public class ChatController {
 
     private final ChatService chatService;
