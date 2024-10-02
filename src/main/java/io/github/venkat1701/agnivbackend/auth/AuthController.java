@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.*;
  * HTTP status code 200 and a body of type {@link AuthResponse}.</p>
  * @author Venkat
  */
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

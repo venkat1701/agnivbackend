@@ -53,7 +53,8 @@ public class ChatService {
         this.chatClient = ChatClient.builder(
                 new OllamaChatModel(
                         new OllamaApi(new URI("https://grim-marcelia-garibrath-782959fb.koyeb.app/").toString()),
-                        OllamaOptions.builder().withModel("tinyllama").build()
+                        OllamaOptions.builder().withModel("tinyllama").withKeepAlive("true")
+                                .build()
                 )
         ).build();
         this.userEmbeddingRepository = userEmbeddingRepository;
@@ -89,12 +90,6 @@ public class ChatService {
         String documentContext = buildContextFromDocuments(similarDocuments);
 
         String augmentedQuery = buildAugmentedQuery(userContext, similarUsersContext, documentContext, query, conversation);
-//        System.out.println(host);
-//        OllamaAPI ollamaAPI = new OllamaAPI("https://grim-marcelia-garibrath-782959fb.koyeb.app/");
-//
-//        ollamaAPI.setVerbose(true);
-
-
         String response = this.chatClient.prompt().user(augmentedQuery).call().content();
         conversation.add("Bot: " + response);
 

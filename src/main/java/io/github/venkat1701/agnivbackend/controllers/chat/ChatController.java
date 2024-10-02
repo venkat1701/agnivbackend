@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 /**
  * Handles all the chat-related operations in the application. This class is
  * responsible for getting the chat response from the chat service based on the
