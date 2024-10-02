@@ -133,7 +133,7 @@ public class AuthController {
         }
 
         String jwt = jwtProvider.generateToken(authentication, user.getId());
-        return new ResponseEntity<>(new AuthResponse(jwt, "Token Generated with User ID " + user.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(new AuthResponse(jwt, "" + user.getId()), HttpStatus.OK);
     }
     /**
      * Authenticates the user with the given email and password.
@@ -164,4 +164,6 @@ public class AuthController {
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
+
+
 }
