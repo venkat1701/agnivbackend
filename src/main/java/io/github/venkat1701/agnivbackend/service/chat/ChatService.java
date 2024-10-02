@@ -53,7 +53,7 @@ public class ChatService {
         this.chatClient = ChatClient.builder(
                 new OllamaChatModel(
                         new OllamaApi(new URI("https://grim-marcelia-garibrath-782959fb.koyeb.app/").toString()),
-                        OllamaOptions.builder().withModel("tinyllama").withKeepAlive("true")
+                        OllamaOptions.builder().withModel("tinyllama").withKeepAlive("10m")
                                 .build()
                 )
         ).build();
