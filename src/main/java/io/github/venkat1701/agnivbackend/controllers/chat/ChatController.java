@@ -25,7 +25,7 @@ import java.io.IOException;
  * @author Venkat
  */
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3000/chat"}, exposedHeaders = "Access-Control-Allow-Origin")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class ChatController {
 
     private final ChatService chatService;

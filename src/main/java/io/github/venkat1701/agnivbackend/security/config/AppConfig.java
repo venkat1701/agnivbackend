@@ -43,6 +43,8 @@ public class AppConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .cors(cors->cors.disable())
+                .csrf(csrf->csrf.disable())
                 .sessionManagement(management->management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests-> {
                     requests.requestMatchers("/api/**").authenticated();
@@ -51,19 +53,6 @@ public class AppConfig {
                 })
                 .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf->csrf.disable())
-                .cors(cors->cors.configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                        CorsConfiguration configuration = new CorsConfiguration();
-                        configuration.setAllowCredentials(true);
-                        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/**"));
-                        configuration.setAllowedHeaders(List.of("*"));
-                        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                        configuration.setExposedHeaders(List.of("Authorization"));
-                        configuration.setMaxAge(3600L);
-                        return configuration;
-                    }
-                }))
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
                 .build();
