@@ -76,16 +76,15 @@ public class AppConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000/**", "http://localhost:3000/"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
-        config.setAllowedHeaders(Arrays.asList("Access-Control-*, Origin, X-Requested-With, Content-Type, Accept"));
-        config.setExposedHeaders(Arrays.asList("Access-Control-*", "Authorization"));
+        config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization", "X-Requested-With"));
+        config.setExposedHeaders(Arrays.asList("Authorization"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
-        return new org.springframework.web.filter.CorsFilter(source);
+        return new CorsFilter(source);
     }
 }
