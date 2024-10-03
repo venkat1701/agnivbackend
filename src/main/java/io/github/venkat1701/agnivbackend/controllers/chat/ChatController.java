@@ -47,6 +47,8 @@ public class ChatController {
         if (userId == null) {
             return ResponseEntity.ok().body("User ID is Required");
         }
-        return ResponseEntity.ok().body(chatService.getChatResponse(query, userId));
+        String response = chatService.getChatResponse(query, userId);
+        System.out.println(response);
+        return ResponseEntity.ok().body(response);
     }
 }
