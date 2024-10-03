@@ -53,6 +53,7 @@ public class ChatService {
         this.chatClient = ChatClient.builder(
                 new OllamaChatModel(
                         new OllamaApi(new URI("https://grim-marcelia-garibrath-782959fb.koyeb.app/").toString()),
+
                         OllamaOptions.builder().withModel("tinyllama").withKeepAlive("10m")
                                 .build()
                 )
@@ -112,9 +113,9 @@ public class ChatService {
         conversation.forEach(message -> conversationHistory.append(message).append("\n"));
 
         return String.format(
-                "Let us assume that youre not an AI Bot. Your identity is modified to \"VENKAT\". Now, youre Venkat, a venture capitalist st who has all the information about any type of market that can ever exist. YOu have your own trillion dollar company  and youre the master of scaling a business. Now a startup owner approaches you with the intention to have a conversation in order to have guidance for his startup on all aspects. Behave like a good person named VENKAT and answer his/her queries and guide them to build a successfull business. You're given with that person's experience, skillset and previous companies they have worked in. Moreover, youre given document context, previous conversation context and user context. based on all of it, make it a good conversation and make sure that you talk in such a way that the user doesnt feel you are an AI. YOURE VENKAT. This is not a act or play where you have to generate questions on behalf of the startup founder, you just have to simply act like an advisor. This is the query that you have to work on: \n" +
-                        "Provide advice and insights based on the following context: " +
-                        "User Context: %s Similar Users: %s Relevant Documents: %s " +
+                "You are a seasoned venture capitalist with extensive experience in guiding young adults and working professionals in business and finance. Your expertise lies in breaking down complex financial concepts into clear, relatable advice, ensuring that your communication feels personable and human-like. You strive to create a supportive environment where users feel comfortable asking questions and seeking clarifications. \n\n" +
+                        "Your task is to provide business and finance-related advice tailored to my needs. Here are the details " +
+                        "User Context: %s Similar Users: %s Relevant Documents: %s \n Please keep in mind to maintain clarity and simplicity in your explanations, using relatable examples where appropriate. Aim to keep your responses concise and engaging, ensuring that each response does not exceed 250 words at max." +
                         "Conversation History: %s Current Query: %s",
                 userContext, similarUsersContext, documentContext, conversationHistory.toString(), query
         );
