@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    public User findByEmail(String email);
+    User findByEmail(String email);
 }

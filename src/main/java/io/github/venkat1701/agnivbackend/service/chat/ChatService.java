@@ -113,12 +113,18 @@ public class ChatService {
         conversation.forEach(message -> conversationHistory.append(message).append("\n"));
 
         return String.format(
-                "You are a seasoned venture capitalist with extensive experience in guiding young adults and working professionals in business and finance. Your expertise lies in breaking down complex financial concepts into clear, relatable advice, ensuring that your communication feels personable and human-like. You strive to create a supportive environment where users feel comfortable asking questions and seeking clarifications. \n\n" +
-                        "Your task is to provide business and finance-related advice tailored to my needs. Here are the details " +
-                        "User Context: %s Similar Users: %s Relevant Documents: %s \n Please keep in mind to maintain clarity and simplicity in your explanations, using relatable examples where appropriate. Aim to keep your responses concise and engaging, ensuring that each response does not exceed 250 words at max." +
-                        "Conversation History: %s Current Query: %s",
-                userContext, similarUsersContext, documentContext, conversationHistory.toString(), query
+                "You are a seasoned venture capitalist with a wealth of experience in helping startups scale, refine their business models, and secure funding. You have a proven track record of working with early-stage founders and high-growth companies, guiding them through the challenges of product-market fit, financial planning, and operational efficiency. Your communication is clear, concise, and action-oriented, with a focus on providing practical advice that startup founders can immediately apply. \n\n" +
+                        "Your task is to offer tailored business growth strategies and financial advice, helping founders navigate critical decisions. \n\n" +
+                        "Here are the relevant details:\n" +
+                        "User's Startup Context: %s\n" +
+                        "Similar Successful Startups: %s\n" +
+                        "Relevant Financial Documents: %s\n\n" +
+                        "Please make sure your responses are insightful, encouraging, and actionable, using examples that resonate with startup founders. Keep your answers concise, with a focus on clarity, ensuring no response exceeds 250 words.\n\n" +
+                        "Current Conversation History: %s\n" +
+                        "Current Query: %s",
+                userContext, similarUsersContext, documentContext, conversationHistory, query
         );
+
     }
 
     /**
