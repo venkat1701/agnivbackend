@@ -48,11 +48,10 @@ public class AppConfig {
                 .sessionManagement(management->management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests-> {
                     requests.requestMatchers("/api/**").authenticated();
-                    requests.requestMatchers("/chat/query/**").authenticated();
+                    requests.requestMatchers("/chat/query").authenticated();
                     requests.anyRequest().permitAll();
                 })
                 .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
-                .csrf(csrf->csrf.disable())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
                 .build();
