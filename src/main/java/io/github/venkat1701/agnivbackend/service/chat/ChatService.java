@@ -52,7 +52,7 @@ public class ChatService {
                        UserRepository userRepository) throws URISyntaxException {
         this.chatClient = ChatClient.builder(
                 new OllamaChatModel(
-                        new OllamaApi(new URI("https://grim-marcelia-garibrath-782959fb.koyeb.app/").toString()),
+                        new OllamaApi(new URI("https://zippy-ashleigh-garibrath-4f5aa5ce.koyeb.app/").toString()),
 
                         OllamaOptions.builder().withModel("tinyllama").withKeepAlive("10m")
                                 .build()
