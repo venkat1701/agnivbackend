@@ -54,7 +54,7 @@ public class ChatService {
                 new OllamaChatModel(
                         new OllamaApi(new URI("https://zippy-ashleigh-garibrath-4f5aa5ce.koyeb.app/").toString()),
 
-                        OllamaOptions.builder().withModel("tinyllama").withKeepAlive("10m")
+                        OllamaOptions.builder().withModel("llama3.1").withKeepAlive("10m")
                                 .build()
                 )
         ).build();
