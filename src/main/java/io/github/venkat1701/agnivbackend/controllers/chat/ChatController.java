@@ -1,6 +1,7 @@
 package io.github.venkat1701.agnivbackend.controllers.chat;
 
 import io.github.ollama4j.exceptions.OllamaBaseException;
+import io.github.venkat1701.agnivbackend.dto.chat.ChatResponse;
 import io.github.venkat1701.agnivbackend.service.chat.ChatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,11 +44,12 @@ public class ChatController {
      * @return the chat response
      */
     @GetMapping("/chat/query")
-    public ResponseEntity<String> getChatResponse(@RequestParam String query, @RequestParam(required = false) Long userId) throws OllamaBaseException, IOException, InterruptedException {
+    public ResponseEntity<ChatResponse> getChatResponse(@RequestParam String query, @RequestParam(required = false) Long userId) throws OllamaBaseException, IOException, InterruptedException {
         if (userId == null) {
-            return ResponseEntity.ok().body("User ID is Required");
+            return ResponseEntity.ok().body(new ChatResponse("User ID is required!"));
         }
         String response = chatService.getChatResponse(query, userId);
-        return ResponseEntity.ok().body(response);
+
+        return ResponseEntity.ok().body(new ChatResponse(response));
     }
 }
