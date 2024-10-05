@@ -1,12 +1,11 @@
 package io.github.venkat1701.agnivbackend.embeddings;
 
+import io.github.venkat1701.agnivbackend.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "user_embedding")
@@ -20,19 +19,22 @@ public class UserEmbedding {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "first_name_embedding")
+    private Float firstNameEmbedding;
 
-    @Column(name = "embedding_1")
-    private Float embedding1;
+    @Column(name = "last_name_embedding")
+    private Float lastNameEmbedding;
 
-    @Column(name = "embedding_2")
-    private Float embedding2;
+    @Column(name = "role_embedding")
+    private Float roleEmbedding;
 
-    @Column(name = "embedding_3")
-    private Float embedding3;
+    @Column(name = "email_embedding")
+    private Float emailEmbedding;
 
-    @Column(name = "embedding_4")
-    private Float embedding4;
+    @Column(name = "password_strength_embedding")
+    private Float passwordStrengthEmbedding;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

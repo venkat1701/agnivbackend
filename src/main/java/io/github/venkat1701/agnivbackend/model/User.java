@@ -1,10 +1,7 @@
 package io.github.venkat1701.agnivbackend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,10 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -28,11 +26,11 @@ public class User {
     private String role;
     private String mobile;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Experience> experienceList = new ArrayList<>();
 
 
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Skill> skillList = new ArrayList<>();
 
     private LocalDateTime createdAt;

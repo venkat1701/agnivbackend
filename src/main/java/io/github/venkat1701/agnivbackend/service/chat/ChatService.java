@@ -12,19 +12,20 @@ import io.github.venkat1701.agnivbackend.repository.embeddings.DocumentEmbedding
 import io.github.venkat1701.agnivbackend.repository.embeddings.UserEmbeddingRepository;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.DefaultChatClient;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.ai.ollama.api.OllamaOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import reactor.core.publisher.Flux;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class handles the chat functionality of the application. It uses the
@@ -42,7 +43,7 @@ public class ChatService {
 
     @Value("${spring.ai.ollama.chat.url}")
     private String host;
-    // Conversation history map to hold user sessions.
+
     private final Map<Long, List<String>> conversationHistory = new HashMap<>();
 
     @Autowired
@@ -53,7 +54,6 @@ public class ChatService {
         this.chatClient = ChatClient.builder(
                 new OllamaChatModel(
                         new OllamaApi(new URI("https://zippy-ashleigh-garibrath-4f5aa5ce.koyeb.app/").toString()),
-
                         OllamaOptions.builder().withModel("llama3.1").withKeepAlive("10m")
                                 .build()
                 )
@@ -76,26 +76,71 @@ public class ChatService {
         List<String> conversation = conversationHistory.get(userId);
 
         conversation.add("User: " + query);
-
-
         List<Float> currentUserEmbedding = generateCurrentUserEmbedding(userId);
+
+        // Adjust the embedding size if necessary.
         adjustEmbeddingSize(currentUserEmbedding);
 
         List<UserEmbedding> similarUsers = findSimilarUsers(currentUserEmbedding);
+        System.out.println(similarUsers);
         List<DocumentEmbedding> similarDocuments = findSimilarDocuments(currentUserEmbedding);
-
+        System.out.println(similarDocuments);
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
+
+        // Building contexts based on user and similar users and documents.
         String userContext = buildContextFromUser(user);
         String similarUsersContext = buildContextFromSimilarUsers(similarUsers);
         String documentContext = buildContextFromDocuments(similarDocuments);
 
+        // Creating augmented query.
         String augmentedQuery = buildAugmentedQuery(userContext, similarUsersContext, documentContext, query, conversation);
+
+        // Sending the augmented query to the chatbot.
         String response = this.chatClient.prompt().user(augmentedQuery).call().content();
         conversation.add("Bot: " + response);
 
         return response;
     }
+
+    /**
+     * Generates a chat response for the given query and user ID, and returns it
+     * to the caller. The method also stores the conversation history for the
+     * given user ID in memory.
+     *
+     * @param query  User query
+     * @param userId User ID
+     * @return Chat response
+     */
+    public void streamChatResponse(String query, Long userId, SseEmitter emitter) throws IOException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String userContext = buildContextFromUser(user);
+        String documentContext = buildContextFromDocuments(findSimilarDocuments(generateCurrentUserEmbedding(userId)));
+
+        String augmentedQuery = buildAugmentedQuery(userContext, null, documentContext, query, new ArrayList<>());
+        System.out.println(augmentedQuery);
+
+        this.chatClient.prompt().user(augmentedQuery).stream().chatResponse().toStream().forEach(chatResponse -> {
+            try {
+                String uniqueTokenId = UUID.randomUUID().toString();
+                String responseWithMetadata = "{ \"id\": \"" + uniqueTokenId + "\", \"content\": \"" + chatResponse.getResult().getOutput().getContent() + "\" }";
+
+                emitter.send(SseEmitter.event()
+                        .id(uniqueTokenId)
+                        .name("token")
+                        .data(responseWithMetadata)
+                );
+            } catch (IOException ioe) {
+                emitter.completeWithError(ioe);
+            }
+        });
+
+        // Now complete the emitter after the streaming has finished
+        emitter.complete();
+    }
+
 
     /**
      * Builds an augmented query based on the provided user context, similar users context, document context, and query.
@@ -148,12 +193,14 @@ public class ChatService {
      * @return List of similar user embeddings
      */
     private List<UserEmbedding> findSimilarUsers(List<Float> embedding) {
-        return userEmbeddingRepository.findSimilarUsersByEmbedding(
+        List<UserEmbedding> userList =  userEmbeddingRepository.findSimilarUsersByEmbedding(
                 embedding.get(0),
                 embedding.get(1),
                 embedding.get(2),
                 embedding.get(3)
         );
+
+        return userList.isEmpty()?new ArrayList<>():userList;
     }
 
     /**
@@ -197,7 +244,7 @@ public class ChatService {
     private String buildContextFromSimilarUsers(List<UserEmbedding> embeddings) {
         StringBuilder context = new StringBuilder();
         embeddings.forEach(embedding -> {
-            context.append("User ID: ").append(embedding.getUserId()).append("; ");
+            context.append("User ID: ").append(embedding.getUser().getId()).append("; ");
         });
         return context.toString();
     }
@@ -229,7 +276,6 @@ public class ChatService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Float> embedding = new ArrayList<>();
-
         for (Skill skill : user.getSkillList()) {
             embedding.addAll(encodeSkill(skill));
         }
@@ -237,6 +283,8 @@ public class ChatService {
         for (Experience experience : user.getExperienceList()) {
             embedding.addAll(encodeExperience(experience));
         }
+
+        System.out.println("Current User Embedding: "+embedding);
         return normalizeEmbedding(embedding);
     }
 
