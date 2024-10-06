@@ -1,18 +1,14 @@
 package io.github.venkat1701.agnivbackend.service.chat;
 
-
-import io.github.ollama4j.OllamaAPI;
 import io.github.venkat1701.agnivbackend.embeddings.DocumentEmbedding;
 import io.github.venkat1701.agnivbackend.embeddings.UserEmbedding;
 import io.github.venkat1701.agnivbackend.model.Experience;
-import io.github.venkat1701.agnivbackend.model.Skill;
 import io.github.venkat1701.agnivbackend.model.User;
 import io.github.venkat1701.agnivbackend.repository.auth.UserRepository;
 import io.github.venkat1701.agnivbackend.repository.embeddings.DocumentEmbeddingRepository;
 import io.github.venkat1701.agnivbackend.repository.embeddings.UserEmbeddingRepository;
+import io.github.venkat1701.agnivbackend.service.skill.SkillEmbeddingService;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.DefaultChatClient;
-import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.ai.ollama.api.OllamaOptions;
@@ -20,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import reactor.core.publisher.Flux;
 
 import java.io.IOException;
 import java.net.URI;
@@ -40,6 +35,7 @@ public class ChatService {
     private final UserEmbeddingRepository userEmbeddingRepository;
     private final DocumentEmbeddingRepository documentEmbeddingRepository;
     private final UserRepository userRepository;
+    private SkillEmbeddingService skillEmbeddingService;
 
     @Value("${spring.ai.ollama.chat.url}")
     private String host;
@@ -50,7 +46,8 @@ public class ChatService {
     public ChatService(ChatClient.Builder client,
                        UserEmbeddingRepository userEmbeddingRepository,
                        DocumentEmbeddingRepository documentEmbeddingRepository,
-                       UserRepository userRepository) throws URISyntaxException {
+                       UserRepository userRepository,
+                       SkillEmbeddingService skillEmbeddingService) throws URISyntaxException {
         this.chatClient = ChatClient.builder(
                 new OllamaChatModel(
                         new OllamaApi(new URI("https://zippy-ashleigh-garibrath-4f5aa5ce.koyeb.app/").toString()),
@@ -61,6 +58,7 @@ public class ChatService {
         this.userEmbeddingRepository = userEmbeddingRepository;
         this.documentEmbeddingRepository = documentEmbeddingRepository;
         this.userRepository = userRepository;
+        this.skillEmbeddingService = skillEmbeddingService;
     }
 
     /**
@@ -113,20 +111,22 @@ public class ChatService {
      * @return Chat response
      */
     public void streamChatResponse(String query, Long userId, SseEmitter emitter) throws IOException {
+        conversationHistory.putIfAbsent(userId, new ArrayList<>());
+        List<String> conversation = conversationHistory.get(userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         String userContext = buildContextFromUser(user);
         String documentContext = buildContextFromDocuments(findSimilarDocuments(generateCurrentUserEmbedding(userId)));
 
         String augmentedQuery = buildAugmentedQuery(userContext, null, documentContext, query, new ArrayList<>());
         System.out.println(augmentedQuery);
-
+        conversation.add(augmentedQuery);
+        StringBuilder builder = new StringBuilder();
         this.chatClient.prompt().user(augmentedQuery).stream().chatResponse().toStream().forEach(chatResponse -> {
             try {
                 String uniqueTokenId = UUID.randomUUID().toString();
                 String responseWithMetadata = "{ \"id\": \"" + uniqueTokenId + "\", \"content\": \"" + chatResponse.getResult().getOutput().getContent() + "\" }";
-
+                builder.append(chatResponse.getResult().getOutput().getContent());
                 emitter.send(SseEmitter.event()
                         .id(uniqueTokenId)
                         .name("token")
@@ -137,7 +137,7 @@ public class ChatService {
             }
         });
 
-        // Now complete the emitter after the streaming has finished
+        conversation.add(builder.toString());
         emitter.complete();
     }
 
@@ -276,9 +276,7 @@ public class ChatService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Float> embedding = new ArrayList<>();
-        for (Skill skill : user.getSkillList()) {
-            embedding.addAll(encodeSkill(skill));
-        }
+        embedding.addAll(this.skillEmbeddingService.generateCurrentUserEmbedding(user.getId()));
 
         for (Experience experience : user.getExperienceList()) {
             embedding.addAll(encodeExperience(experience));
@@ -286,30 +284,6 @@ public class ChatService {
 
         System.out.println("Current User Embedding: "+embedding);
         return normalizeEmbedding(embedding);
-    }
-
-    /**
-     * Encodes a skill into a list of floats.
-     * @param skill
-     * @return
-     */
-    private List<Float> encodeSkill(Skill skill) {
-        String skillName = skill.getSkill().toLowerCase();
-        switch (skillName) {
-            case "java": return List.of(1.0f, 0.0f, 0.0f);
-            case "python": return List.of(0.0f, 1.0f, 0.0f);
-            case "management": return List.of(0.0f, 0.0f, 1.0f);
-            case "javascript": return List.of(1.0f, 0.5f, 0.0f);
-            case "c++": return List.of(1.0f, 0.3f, 0.2f);
-            case "html": return List.of(0.5f, 1.0f, 0.5f);
-            case "data analysis": return List.of(0.2f, 1.0f, 0.3f);
-            case "machine learning": return List.of(0.3f, 1.0f, 0.7f);
-            case "project management": return List.of(0.4f, 0.6f, 1.0f);
-            case "graphic design": return List.of(0.2f, 0.8f, 0.5f);
-            case "cloud computing": return List.of(0.6f, 1.0f, 0.4f);
-            case "devops": return List.of(1.0f, 1.0f, 0.2f);
-            default: return List.of(0.5f, 0.5f, 0.5f); // For unknown skills
-        }
     }
 
     /**

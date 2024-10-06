@@ -1,9 +1,97 @@
 skills:
-  - java
-  - python
-  - go
-  - scala
-  - swift
-  - backend
-  - frontend
-  
+  - name: java
+    category: Programming Language
+    level: Advanced
+    embedding: [0.95, 0.88, 0.92]
+  - name: python
+    category: Programming Language
+    level: Advanced
+    embedding: [0.90, 0.87, 0.91]
+  - name: go
+    category: Programming Language
+    level: Intermediate
+    embedding: [0.75, 0.65, 0.78]
+  - name: scala
+    category: Programming Language
+    level: Intermediate
+    embedding: [0.73, 0.68, 0.76]
+  - name: swift
+    category: Programming Language
+    level: Intermediate
+    embedding: [0.72, 0.70, 0.74]
+  - name: backend
+    category: Development
+    level: Advanced
+    embedding: [0.91, 0.89, 0.94]
+  - name: frontend
+    category: Development
+    level: Advanced
+    embedding: [0.88, 0.85, 0.89]
+  - name: management
+    category: Soft Skill
+    level: Advanced
+    embedding: [0.86, 0.90, 0.88]
+  - name: c++
+    category: Programming Language
+    level: Advanced
+    embedding: [0.93, 0.87, 0.89]
+  - name: html
+    category: Web Technology
+    level: Advanced
+    embedding: [0.85, 0.83, 0.86]
+  - name: css
+    category: Web Technology
+    level: Advanced
+    embedding: [0.84, 0.81, 0.85]
+  - name: javascript
+    category: Programming Language
+    level: Advanced
+    embedding: [0.87, 0.86, 0.89]
+  - name: data analysis
+    category: Data Science
+    level: Advanced
+    embedding: [0.89, 0.88, 0.91]
+  - name: machine learning
+    category: Data Science
+    level: Advanced
+    embedding: [0.92, 0.89, 0.93]
+  - name: project management
+    category: Soft Skill
+    level: Advanced
+    embedding: [0.88, 0.90, 0.87]
+  - name: networking
+    category: Infrastructure
+    level: Intermediate
+    embedding: [0.72, 0.70, 0.74]
+  - name: graphic design
+    category: Design
+    level: Intermediate
+    embedding: [0.70, 0.68, 0.72]
+  - name: kotlin
+    category: Programming Language
+    level: Intermediate
+    embedding: [0.76, 0.74, 0.77]
+  - name: cloud computing
+    category: Infrastructure
+    level: Advanced
+    embedding: [0.90, 0.92, 0.91]
+  - name: c
+    category: Programming Language
+    level: Advanced
+    embedding: [0.88, 0.84, 0.89]
+  - name: devops
+    category: Development
+    level: Advanced
+    embedding: [0.89, 0.91, 0.90]
+  - name: "c#"
+    category: Programming Language
+    level: Advanced
+    embedding: [0.85, 0.86, 0.88]
+  - name: rust
+    category: Programming Language
+    level: Intermediate
+    embedding: [0.73, 0.71, 0.76]
+  - name: ruby
+    category: Programming Language
+    level: Intermediate
+    embedding: [0.71, 0.69, 0.73]

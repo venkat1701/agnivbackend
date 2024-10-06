@@ -32,6 +32,7 @@ public class ChatStreamingController {
     public SseEmitter streamChatResponse(@RequestParam String query, @RequestParam Long userId) {
         SseEmitter emitter = new SseEmitter(0L);
 
+        // Use virtual threads
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.submit(() -> {
             try{
