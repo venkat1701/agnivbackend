@@ -118,7 +118,7 @@ public class ChatService {
         String userContext = buildContextFromUser(user);
         String documentContext = buildContextFromDocuments(findSimilarDocuments(generateCurrentUserEmbedding(userId)));
 
-        String augmentedQuery = buildAugmentedQuery(userContext, null, documentContext, query, conversation);
+        String augmentedQuery = buildAugmentedQuery(userContext, null, documentContext, query, new ArrayList<>());
         System.out.println(augmentedQuery);
         conversation.add(augmentedQuery);
         StringBuilder builder = new StringBuilder();
