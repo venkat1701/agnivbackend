@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -25,7 +25,7 @@ public class User {
     private String email;
     private String role;
     private String mobile;
-
+    private String gender;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Experience> experienceList = new ArrayList<>();
 
