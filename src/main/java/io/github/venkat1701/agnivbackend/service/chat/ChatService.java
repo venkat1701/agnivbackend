@@ -92,7 +92,7 @@ public class ChatService {
         String documentContext = buildContextFromDocuments(similarDocuments);
 
         // Creating augmented query.
-        String augmentedQuery = buildAugmentedQuery(userContext, similarUsersContext, documentContext, query, conversation);
+        String augmentedQuery = buildAugmentedQuery(userContext, null, documentContext, query, conversation);
 
         // Sending the augmented query to the chatbot.
         String response = this.chatClient.prompt().user(augmentedQuery).call().content();
