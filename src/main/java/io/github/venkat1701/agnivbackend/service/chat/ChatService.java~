@@ -134,7 +134,7 @@ public class ChatService {
                 emitter.completeWithError(ioe);
             }
         });
-//        conversation.add(builder.toString());
+        conversation.add(builder.toString());
         emitter.complete();
     }
 
