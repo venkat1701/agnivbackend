@@ -4,6 +4,7 @@ import io.github.venkat1701.agnivbackend.dto.auth.AuthResponse;
 import io.github.venkat1701.agnivbackend.dto.auth.LoginDTO;
 import io.github.venkat1701.agnivbackend.dto.user.UserRegistrationDTO;
 import io.github.venkat1701.agnivbackend.exceptions.UserException;
+import io.github.venkat1701.agnivbackend.exceptions.UserNotFoundException;
 import io.github.venkat1701.agnivbackend.model.User;
 import io.github.venkat1701.agnivbackend.repository.auth.UserRepository;
 import io.github.venkat1701.agnivbackend.security.jwt.JwtProvider;
@@ -117,17 +118,14 @@ public class AuthController {
      * @throws BadCredentialsException if the user credentials are invalid
      */
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginDTO loginDTO) throws UserNotFoundException {
         String email = loginDTO.getEmail();
         String password = loginDTO.getPassword();
-
         Authentication authentication = authenticate(email, password);
-
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new BadCredentialsException("Invalid Email or Password.");
         }
-
         String jwt = jwtProvider.generateToken(authentication, user.getId());
         return ResponseEntity.ok().body(new AuthResponse(jwt, "" + user.getId()));
     }
@@ -148,13 +146,11 @@ public class AuthController {
      * @return an Authentication object for the user
      * @throws BadCredentialsException if the user credentials are invalid
      */
-    private Authentication authenticate(String email, String password) {
+    private Authentication authenticate(String email, String password) throws UserNotFoundException {
         UserDetails userDetails = userService.loadUserByUsername(email);
-//        System.out.println(password);
         if (userDetails == null) {
             throw new BadCredentialsException("Invalid Email or Password.");
         }
-
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Invalid Password.");
         }

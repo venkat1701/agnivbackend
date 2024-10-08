@@ -2,6 +2,7 @@ package io.github.venkat1701.agnivbackend.service.auth;
 
 import io.github.venkat1701.agnivbackend.dto.user.UserRegistrationDTO;
 import io.github.venkat1701.agnivbackend.exceptions.UserException;
+import io.github.venkat1701.agnivbackend.exceptions.UserNotFoundException;
 import io.github.venkat1701.agnivbackend.model.Experience;
 import io.github.venkat1701.agnivbackend.model.Skill;
 import io.github.venkat1701.agnivbackend.model.User;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +38,13 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = encoder;
     }
 
-    public User findUserById(Long userId) {
+    public User findUserById(Long userId) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
             return user.get();
         }
-        throw new UsernameNotFoundException("Username with corresponding id not found");
+
+        throw new UserNotFoundException("Username with corresponding id not found");
     }
 
     public User findUserProfileByJwt(String jwt) throws UserException {
@@ -90,11 +92,16 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
-        if(user==null)
-            throw new UsernameNotFoundException("Username not found against email in records");
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+    public UserDetails loadUserByUsername(String username){
+        try {
+            User user = userRepository.findByEmail(username);
+            if(user==null)
+                throw new UserNotFoundException("Username not found against email in records");
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+        } catch(UserNotFoundException unfe) {
+            unfe.printStackTrace();
+            return null;
+        }
     }
 }
