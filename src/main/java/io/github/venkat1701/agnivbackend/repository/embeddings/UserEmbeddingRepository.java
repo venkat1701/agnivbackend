@@ -4,11 +4,13 @@ import io.github.venkat1701.agnivbackend.embeddings.UserEmbedding;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface UserEmbeddingRepository extends JpaRepository<UserEmbedding, Long> {
 
+    @Transactional
     @Query(value = "SELECT * FROM user_embedding " +
             "ORDER BY " +
             "SQRT(POW(:e1 - embedding_1, 2) + " +

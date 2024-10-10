@@ -1,0 +1,562 @@
+# Created at 2024-10-10T09:36:52.749
+Thread dump for process (20792@Remington):
+"main" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.Net.poll(Native Method)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:181)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:190)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+        at java.base@17.0.7/java.net.Socket$SocketInputStream.read(Socket.java:966)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+        at app//org.postgresql.core.VisibleBufferedInputStream.readMore(VisibleBufferedInputStream.java:162)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:129)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:114)
+        at app//org.postgresql.core.VisibleBufferedInputStream.read(VisibleBufferedInputStream.java:74)
+        at app//org.postgresql.core.PGStream.receiveChar(PGStream.java:467)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2166)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
+        at app//org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502)
+        at app//org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419)
+        at app//org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+        at app//org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+        at app//com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+        at app//com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+        at app//org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+        at app//org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+        at app//org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+        at app//org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+        at app//org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+        at app//org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+        at app//org.hibernate.loader.ast.internal.CollectionLoaderSingleKey.load(CollectionLoaderSingleKey.java:120)
+        at app//org.hibernate.persister.collection.AbstractCollectionPersister.initialize(AbstractCollectionPersister.java:703)
+        at app//org.hibernate.event.internal.DefaultInitializeCollectionEventListener.onInitializeCollection(DefaultInitializeCollectionEventListener.java:67)
+        at app//org.hibernate.internal.SessionImpl$$Lambda$2214/0x0000000801bf42d8.accept(Unknown Source)
+        at app//org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+        at app//org.hibernate.internal.SessionImpl.initializeCollection(SessionImpl.java:1720)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.lambda$initialize$3(AbstractPersistentCollection.java:617)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection$$Lambda$2213/0x0000000801bf3c68.doWork(Unknown Source)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:266)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.initialize(AbstractPersistentCollection.java:615)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.forceInitialization(AbstractPersistentCollection.java:818)
+        at app//org.hibernate.engine.internal.StatefulPersistenceContext$$Lambda$2212/0x0000000801bf3a40.accept(Unknown Source)
+        at app//org.hibernate.engine.internal.StatefulPersistenceContext.initializeNonLazyCollections(StatefulPersistenceContext.java:1146)
+        at app//org.hibernate.engine.internal.StatefulPersistenceContext.initializeNonLazyCollections(StatefulPersistenceContext.java:1132)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:231)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan$$Lambda$2169/0x0000000801bc8460.interpret(Unknown Source)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+        at app//org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+        at app//org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+        at app//org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+        at app//org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+        at app//org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+        at app//org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+        at app//org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+        at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryQueryMethodInvoker$$Lambda$2143/0x0000000801b974a0.invoke(Unknown Source)
+        at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+        at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+        at app//org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+        at app//org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.transaction.interceptor.TransactionInterceptor$$Lambda$2138/0x0000000801b93db0.proceedWithInvocation(Unknown Source)
+        at app//org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+        at app//org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+        at app/jdk.proxy2/jdk.proxy2.$Proxy163.findBySkillName(Unknown Source)
+        at app//io.github.venkat1701.agnivbackend.service.skill.SkillEmbeddingService.loadSkillsAndGenerateEmbeddings(SkillEmbeddingService.java:86)
+        at app//io.github.venkat1701.agnivbackend.service.skill.SkillEmbeddingService.generateEmbeddingsOnStartup(SkillEmbeddingService.java:60)
+        at java.base@17.0.7/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base@17.0.7/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+        at java.base@17.0.7/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base@17.0.7/java.lang.reflect.Method.invoke(Method.java:568)
+        at app//org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:365)
+        at app//org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:237)
+        at app//org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:168)
+        at app//org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+        at app//org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+        at app//org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+
+"Reference Handler" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
+        at java.base@17.0.7/java.lang.ref.Reference.processPendingReferences(Reference.java:253)
+        at java.base@17.0.7/java.lang.ref.Reference$ReferenceHandler.run(Reference.java:215)
+
+"Finalizer" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:176)
+        at java.base@17.0.7/java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:172)
+
+"Signal Dispatcher" 
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" 
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" 
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.7/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:140)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+        at java.base@17.0.7/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)
+
+"surefire-forkedjvm-stream-flusher" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"surefire-forkedjvm-command-thread" 
+   java.lang.Thread.State: RUNNABLE
+        at java.management@17.0.7/sun.management.ThreadImpl.getThreadInfo1(Native Method)
+        at java.management@17.0.7/sun.management.ThreadImpl.getThreadInfo(ThreadImpl.java:197)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.generateThreadDump(ForkedBooter.java:579)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.access$600(ForkedBooter.java:79)
+        at app//org.apache.maven.surefire.booter.ForkedBooter$4.update(ForkedBooter.java:322)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.callListeners(CommandReader.java:357)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:309)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"mysql-cj-abandoned-connection-cleanup" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at app//com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:93)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"PostgreSQL-JDBC-Cleaner" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at app//org.postgresql.util.LazyCleaner$1.run(LazyCleaner.java:129)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HikariPool-1 housekeeper" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HikariPool-1 connection adder" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.Net.poll(Native Method)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:181)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:190)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+        at java.base@17.0.7/java.net.Socket$SocketInputStream.read(Socket.java:966)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+        at app//org.postgresql.core.VisibleBufferedInputStream.readMore(VisibleBufferedInputStream.java:162)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:129)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:114)
+        at app//org.postgresql.core.VisibleBufferedInputStream.read(VisibleBufferedInputStream.java:74)
+        at app//org.postgresql.core.PGStream.receiveChar(PGStream.java:467)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2166)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:329)
+        at app//org.postgresql.core.SetupQueryRunner.run(SetupQueryRunner.java:57)
+        at app//org.postgresql.core.v3.ConnectionFactoryImpl.runInitialQueries(ConnectionFactoryImpl.java:923)
+        at app//org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:331)
+        at app//org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+        at app//org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:273)
+        at app//org.postgresql.Driver.makeConnection(Driver.java:446)
+        at app//org.postgresql.Driver.connect(Driver.java:298)
+        at app//com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:120)
+        at app//com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+        at app//com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+        at app//com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+        at app//com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:724)
+        at app//com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:703)
+        at java.base@17.0.7/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HttpClient-1-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"boundedElastic-evictor-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HttpClient-2-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"HttpClient-3-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"HttpClient-4-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"HttpClient-5-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+
+
+# Created at 2024-10-10T09:36:52.753
+Exiting self fork JVM. Received SHUTDOWN command from Maven shutdown hook.
+Thread dump before exiting the process (20792@Remington):
+"main" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.Net.poll(Native Method)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:181)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:190)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+        at java.base@17.0.7/java.net.Socket$SocketInputStream.read(Socket.java:966)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+        at app//org.postgresql.core.VisibleBufferedInputStream.readMore(VisibleBufferedInputStream.java:162)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:129)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:114)
+        at app//org.postgresql.core.VisibleBufferedInputStream.read(VisibleBufferedInputStream.java:74)
+        at app//org.postgresql.core.PGStream.receiveChar(PGStream.java:467)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2166)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
+        at app//org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502)
+        at app//org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419)
+        at app//org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+        at app//org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+        at app//com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+        at app//com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+        at app//org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+        at app//org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+        at app//org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+        at app//org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+        at app//org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+        at app//org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+        at app//org.hibernate.loader.ast.internal.CollectionLoaderSingleKey.load(CollectionLoaderSingleKey.java:120)
+        at app//org.hibernate.persister.collection.AbstractCollectionPersister.initialize(AbstractCollectionPersister.java:703)
+        at app//org.hibernate.event.internal.DefaultInitializeCollectionEventListener.onInitializeCollection(DefaultInitializeCollectionEventListener.java:67)
+        at app//org.hibernate.internal.SessionImpl$$Lambda$2214/0x0000000801bf42d8.accept(Unknown Source)
+        at app//org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+        at app//org.hibernate.internal.SessionImpl.initializeCollection(SessionImpl.java:1720)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.lambda$initialize$3(AbstractPersistentCollection.java:617)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection$$Lambda$2213/0x0000000801bf3c68.doWork(Unknown Source)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:266)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.initialize(AbstractPersistentCollection.java:615)
+        at app//org.hibernate.collection.spi.AbstractPersistentCollection.forceInitialization(AbstractPersistentCollection.java:818)
+        at app//org.hibernate.engine.internal.StatefulPersistenceContext$$Lambda$2212/0x0000000801bf3a40.accept(Unknown Source)
+        at app//org.hibernate.engine.internal.StatefulPersistenceContext.initializeNonLazyCollections(StatefulPersistenceContext.java:1146)
+        at app//org.hibernate.engine.internal.StatefulPersistenceContext.initializeNonLazyCollections(StatefulPersistenceContext.java:1132)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:231)
+        at app//org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+        at app//org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+        at app//org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan$$Lambda$2169/0x0000000801bc8460.interpret(Unknown Source)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+        at app//org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+        at app//org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+        at app//org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+        at app//org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+        at app//org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:223)
+        at app//org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+        at app//org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+        at app//org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+        at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryQueryMethodInvoker$$Lambda$2143/0x0000000801b974a0.invoke(Unknown Source)
+        at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+        at app//org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+        at app//org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:169)
+        at app//org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.transaction.interceptor.TransactionInterceptor$$Lambda$2138/0x0000000801b93db0.proceedWithInvocation(Unknown Source)
+        at app//org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+        at app//org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+        at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+        at app//org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+        at app/jdk.proxy2/jdk.proxy2.$Proxy163.findBySkillName(Unknown Source)
+        at app//io.github.venkat1701.agnivbackend.service.skill.SkillEmbeddingService.loadSkillsAndGenerateEmbeddings(SkillEmbeddingService.java:86)
+        at app//io.github.venkat1701.agnivbackend.service.skill.SkillEmbeddingService.generateEmbeddingsOnStartup(SkillEmbeddingService.java:60)
+        at java.base@17.0.7/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base@17.0.7/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+        at java.base@17.0.7/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base@17.0.7/java.lang.reflect.Method.invoke(Method.java:568)
+        at app//org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:365)
+        at app//org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:237)
+        at app//org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:168)
+        at app//org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+        at app//org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+        at app//org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+
+"Reference Handler" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
+        at java.base@17.0.7/java.lang.ref.Reference.processPendingReferences(Reference.java:253)
+        at java.base@17.0.7/java.lang.ref.Reference$ReferenceHandler.run(Reference.java:215)
+
+"Finalizer" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:176)
+        at java.base@17.0.7/java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:172)
+
+"Signal Dispatcher" 
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" 
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" 
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.7/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:140)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+        at java.base@17.0.7/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)
+
+"surefire-forkedjvm-stream-flusher" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"surefire-forkedjvm-command-thread" 
+   java.lang.Thread.State: RUNNABLE
+        at java.management@17.0.7/sun.management.ThreadImpl.getThreadInfo1(Native Method)
+        at java.management@17.0.7/sun.management.ThreadImpl.getThreadInfo(ThreadImpl.java:197)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.generateThreadDump(ForkedBooter.java:579)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.access$600(ForkedBooter.java:79)
+        at app//org.apache.maven.surefire.booter.ForkedBooter$4.update(ForkedBooter.java:315)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.callListeners(CommandReader.java:357)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.exitByConfiguration(CommandReader.java:367)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:330)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"mysql-cj-abandoned-connection-cleanup" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at app//com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:93)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"PostgreSQL-JDBC-Cleaner" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/java.lang.Object.wait(Native Method)
+        at java.base@17.0.7/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at app//org.postgresql.util.LazyCleaner$1.run(LazyCleaner.java:129)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HikariPool-1 housekeeper" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HikariPool-1 connection adder" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.Net.poll(Native Method)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:181)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.park(NioSocketImpl.java:190)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:314)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)
+        at java.base@17.0.7/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)
+        at java.base@17.0.7/java.net.Socket$SocketInputStream.read(Socket.java:966)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:484)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:478)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1465)
+        at java.base@17.0.7/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1069)
+        at app//org.postgresql.core.VisibleBufferedInputStream.readMore(VisibleBufferedInputStream.java:162)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:129)
+        at app//org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:114)
+        at app//org.postgresql.core.VisibleBufferedInputStream.read(VisibleBufferedInputStream.java:74)
+        at app//org.postgresql.core.PGStream.receiveChar(PGStream.java:467)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2166)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
+        at app//org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:329)
+        at app//org.postgresql.core.SetupQueryRunner.run(SetupQueryRunner.java:57)
+        at app//org.postgresql.core.v3.ConnectionFactoryImpl.runInitialQueries(ConnectionFactoryImpl.java:923)
+        at app//org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:331)
+        at app//org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+        at app//org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:273)
+        at app//org.postgresql.Driver.makeConnection(Driver.java:446)
+        at app//org.postgresql.Driver.connect(Driver.java:298)
+        at app//com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:120)
+        at app//com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+        at app//com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+        at app//com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+        at app//com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:724)
+        at app//com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:703)
+        at java.base@17.0.7/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HttpClient-1-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"boundedElastic-evictor-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.7/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.7/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.7/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.7/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.7/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.7/java.lang.Thread.run(Thread.java:833)
+
+"HttpClient-2-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"HttpClient-3-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"HttpClient-4-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+"HttpClient-5-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.7/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.7/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.7/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.7/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:889)
+
+
+
